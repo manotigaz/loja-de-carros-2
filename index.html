@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loja de Carros</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Loja de Carros</h1>
+        <div id="menu">
+            <button onclick="adicionarCarroEletrico()">Adicionar Carro Elétrico</button>
+            <button onclick="adicionarCarroCombustao()">Adicionar Carro de Combustão</button>
+            <button onclick="listarCarros()">Listar Carros</button>
+            <button onclick="venderCarro()">Vender Carro</button>
+            <button onclick="depreciarCarro()">Dar Desconto no Carro</button>
+        </div>
+        <div id="output"></div>
+        <div id="formContainer" style="display: none;">
+            <form id="carroForm">
+                <label for="modelo">Modelo:</label>
+                <input type="text" id="modelo" required><br>
+                <label for="marca">Marca:</label>
+                <input type="text" id="marca" required><br>
+                <label for="ano">Ano:</label>
+                <input type="number" id="ano" required><br>
+                <label for="precoCompra">Preço de Compra:</label>
+                <input type="number" id="precoCompra" required><br>
+                <label for="precoVenda">Preço de Venda:</label>
+                <input type="number" id="precoVenda" required><br>
+                <label for="foto">Foto do Carro:</label>
+                <input type="file" id="foto" accept="image/*"><br>
+                <div id="extraFields"></div>
+                <button type="submit">Adicionar</button>
+                <button type="button" onclick="cancelar()">Cancelar</button>
+            </form>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
