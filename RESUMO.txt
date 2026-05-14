@@ -1,0 +1,148 @@
+📋 RESUMO DO PROJETO REORGANIZADO
+================================
+
+✅ ORGANIZAÇÃO (SEPARAR CLASSES)
+================================
+Classes agora separadas em arquivos individuais dentro da pasta 'classes/':
+
+├── Carro.ts                   → Superclasse base
+├── CarroEletrico.ts          → Subclasse (extends Carro)
+├── CarroCombustao.ts         → Subclasse (extends Carro)
+├── Cliente.ts                → Superclasse abstrata
+├── ClientePF.ts              → Subclasse (extends Cliente) - Pessoa Física
+├── ClientePJ.ts              → Subclasse (extends Cliente) - Pessoa Jurídica
+└── Venda.ts                  → Classe de Vendas
+
+
+✅ LÓGICA DENTRO DAS CLASSES
+==============================
+
+1. CLASSE CARRO (Superclasse)
+   - Atributos: modelo, marca, ano, precoCompra, precoVenda, vendido, foto
+   - Métodos:
+     • vender() - marca como vendido
+     • depreciar() - reduz 10% do valor
+     • lucro() - calcula lucro
+     • getInfo() - retorna informações
+     • Getters para todos os atributos
+
+2. CLASSE CARROELETRICO (extends Carro)
+   - Atributos adicionais: bateria, autonomia
+   - Construtor: recebe parâmetros + chama super()
+   - Sobrescreve getInfo() com informações de eletricidade
+
+3. CLASSE CARROCOMBUSTAO (extends Carro)
+   - Atributos adicionais: tipoCombustivel, consumo
+   - Construtor: recebe parâmetros + chama super()
+   - Sobrescreve getInfo() com informações de combustão
+
+
+✅ ABA DE CLIENTES (PF E PJ)
+=============================
+
+Menu de Clientes com 2 tipos:
+
+1. CLIENTE PF (Pessoa Física)
+   - Campos: Nome, Endereço, Telefone, Email
+   - Específicos: CPF, Data de Nascimento
+   - Classe: ClientePF (extends Cliente)
+
+2. CLIENTE PJ (Pessoa Jurídica)
+   - Campos: Nome, Endereço, Telefone, Email
+   - Específicos: CNPJ, Nome Empresa, Inscrição Estadual
+   - Classe: ClientePJ (extends Cliente)
+
+Ambas implementam o método abstrato getInfo()
+
+
+✅ CLASSE DE VENDA
+==================
+
+Classe Venda gerencia:
+- ID único (gerado automaticamente)
+- Referência ao Carro vendido
+- Referência ao Cliente
+- Data da venda
+- Preço de venda
+- Desconto aplicado
+- Método getPrecoFinal() para calcular total
+
+Métodos:
+• getInfo() - exibe todas as informações da venda
+• getters - para acessar dados individuais
+
+
+📊 MENU PRINCIPAL
+=================
+
+1. Gerenciar Carros
+   ├── Adicionar Carro Elétrico
+   ├── Adicionar Carro Combustão
+   ├── Listar Carros
+   ├── Vender Carro
+   └── Depreciar Carro
+
+2. Gerenciar Clientes
+   ├── Adicionar Cliente PF
+   ├── Adicionar Cliente PJ
+   └── Listar Clientes
+
+3. Realizar Venda
+   ├── Selecionar Carro
+   ├── Selecionar Cliente
+   └── Aplicar Desconto
+
+4. Listar Vendas
+   └── Visualizar histórico de vendas
+
+
+🚀 COMO RODAR
+=============
+
+VERSÃO CLI (Terminal):
+$ npx ts-node main.ts
+
+VERSÃO WEB (Browser):
+1. Clique duplo em index.html
+   OU
+2. $ npx http-server
+   Acesse: http://localhost:8080
+
+
+🔧 TECNOLOGIAS
+===============
+✓ TypeScript (CLI)
+✓ JavaScript (Web)
+✓ HTML5 + CSS3 (Interface)
+✓ POO (Herança, Polimorfismo, Encapsulamento)
+
+
+📁 ARQUIVOS CRIADOS/MODIFICADOS
+================================
+✓ classes/Carro.ts
+✓ classes/CarroEletrico.ts
+✓ classes/CarroCombustao.ts
+✓ classes/Cliente.ts
+✓ classes/ClientePF.ts
+✓ classes/ClientePJ.ts
+✓ classes/Venda.ts
+✓ main.ts (atualizado)
+✓ app.js (atualizado)
+✓ index.html (atualizado)
+✓ style.css (melhorado)
+✓ README.md (documentação completa)
+
+
+✨ MELHORIAS IMPLEMENTADAS
+==========================
+✓ Código bem organizado e estruturado
+✓ Separação de responsabilidades
+✓ Herança com extends e super()
+✓ Polimorfismo com sobrescrita de métodos
+✓ Encapsulamento com atributos protected
+✓ Abstração com classe Cliente abstrata
+✓ Métodos lógicos dentro das classes
+✓ Interface web intuitiva e responsiva
+✓ Suporte a fotos de carros
+✓ Histórico completo de vendas
+

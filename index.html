@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loja de Carros</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>🚗 Loja de Carros</h1>
+        <div id="menu">
+            <button onclick="mostrarMenuCarros()">Gerenciar Carros</button>
+            <button onclick="mostrarMenuClientes()">Gerenciar Clientes</button>
+            <button onclick="mostrarFormVenda()">Realizar Venda</button>
+            <button onclick="listarVendas()">Listar Vendas</button>
+        </div>
+        <div id="output"></div>
+        <div id="formContainer" style="display: none;">
+            <div id="extraFields"></div>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
