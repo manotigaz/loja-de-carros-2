@@ -1,4 +1,4 @@
-export class Carro {
+export abstract class Carro {
   protected modelo: string;
   protected marca: string;
   protected ano: number;
@@ -24,10 +24,19 @@ export class Carro {
   }
 
   vender() {
+    if (this.vendido) {
+      throw new Error('Carro já está vendido.');
+    }
     this.vendido = true;
   }
 
   depreciar() {
+    if (this.vendido) {
+      throw new Error('Não é possível depreciar um carro vendido.');
+    }
+    if (this.precoVenda <= 0 || isNaN(this.precoVenda)) {
+      throw new Error('Preço de venda inválido para depreciar.');
+    }
     this.precoVenda *= 0.9;
   }
 

@@ -26,6 +26,15 @@ function menuPrincipal() {
   console.log("==============================\n");
 }
 
+function executarComTratamento(acao: () => void) {
+  try {
+    acao();
+  } catch (erro) {
+    const mensagem = erro instanceof Error ? erro.message : String(erro);
+    console.log("Erro:", mensagem);
+  }
+}
+
 function menuCarros() {
   let execCarros = true;
   while (execCarros) {
@@ -35,12 +44,14 @@ function menuCarros() {
     console.log("3 - Listar carros");
     console.log("4 - Listar carros vendidos");
     console.log("5 - Depreciar carro");
+    console.log("6 - Inspecionar todos os carros");
     console.log("0 - Voltar");
     console.log("==============================");
 
     const escolha = +teclado("Escolha uma opção: ");
 
-    switch (escolha) {
+    try {
+      switch (escolha) {
       case 1:
         const modeloE = teclado("Digite o modelo do carro elétrico: ");
         const marcaE = teclado("Digite a marca do carro elétrico: ");
@@ -121,14 +132,29 @@ function menuCarros() {
           });
           const indice = +teclado("Digite o índice do carro a depreciar: ");
 
-          if (carros[indice]) {
-            carros[indice].depreciar();
+            if (!Number.isInteger(indice) || indice < 0 || indice >= carros.length) {
+              throw new Error("Índice inválido!");
+            }
+            const carroSelecionado = carros[indice];
+            if (!carroSelecionado) {
+              throw new Error("Carro não encontrado.");
+            }
+            carroSelecionado.depreciar();
             console.log("Carro depreciado com sucesso!");
-          } else {
-            console.log("Índice inválido!");
-          }
         }
         break;
+
+        case 6:
+          if (carros.length === 0) {
+            console.log("Nenhum carro cadastrado.");
+          } else {
+            console.log("\n===== INSPEÇÃO EM MASSA =====");
+            carros.forEach((carro, index) => {
+              console.log(`${index}: ${carro.getInfo()}`);
+            });
+            console.log("Inspeção em massa concluída.");
+          }
+          break;
 
       case 0:
         execCarros = false;
@@ -137,6 +163,10 @@ function menuCarros() {
       default:
         console.log("Opção inválida!");
         break;
+      }
+    } catch (erro) {
+      const mensagem = erro instanceof Error ? erro.message : String(erro);
+      console.log("Erro:", mensagem);
     }
   }
 }
@@ -234,30 +264,43 @@ function realizarVenda() {
   carros.forEach((carro, index) => {
     console.log(`${index}: ${carro.getInfo()}`);
   });
-  const indiceCarrow = +teclado("Escolha o índice do carro: ");
+  try {
+    const indiceCarrow = +teclado("Escolha o índice do carro: ");
 
-  if (!carros[indiceCarrow]) {
-    console.log("Índice de carro inválido!");
-    return;
-  }
+    if (!Number.isInteger(indiceCarrow) || indiceCarrow < 0 || indiceCarrow >= carros.length) {
+      throw new Error("Índice de carro inválido!");
+    }
 
   console.log("\n===== CLIENTES =====");
   clientes.forEach((cliente, index) => {
     console.log(`${index}: ${cliente.getInfo()}`);
   });
-  const indiceCliente = +teclado("Escolha o índice do cliente: ");
+    const indiceCliente = +teclado("Escolha o índice do cliente: ");
 
-  if (!clientes[indiceCliente]) {
-    console.log("Índice de cliente inválido!");
-    return;
-  }
+    if (!Number.isInteger(indiceCliente) || indiceCliente < 0 || indiceCliente >= clientes.length) {
+      throw new Error("Índice de cliente inválido!");
+    }
 
-  const desconto = +teclado("Digite o desconto (R$): ");
-  const carroVendido = carros[indiceCarrow];
+    const desconto = +teclado("Digite o desconto (R$): ");
+    if (isNaN(desconto) || desconto < 0) {
+      throw new Error("Desconto inválido!");
+    }
+
+    const carroVendido = carros[indiceCarrow];
+    if (!carroVendido) {
+      throw new Error("Carro não encontrado.");
+    }
+    const clienteSelecionado = clientes[indiceCliente];
+    if (!clienteSelecionado) {
+      throw new Error("Cliente não encontrado.");
+    }
+    if (desconto >= carroVendido.getPrecoVenda()) {
+      throw new Error("Desconto muito alto para este carro.");
+    }
   
   const venda = new Venda(
     carroVendido,
-    clientes[indiceCliente],
+    clienteSelecionado,
     carroVendido.getPrecoVenda(),
     desconto
   );
@@ -272,6 +315,10 @@ function realizarVenda() {
   console.log("Venda realizada com sucesso!");
   console.log(venda.getInfo());
   console.log("Carro removido da lista de disponíveis.");
+  } catch (erro) {
+    const mensagem = erro instanceof Error ? erro.message : String(erro);
+    console.log("Erro ao realizar venda:", mensagem);
+  }
 }
 
 function listarVendas() {
