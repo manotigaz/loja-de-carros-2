@@ -31,6 +31,7 @@ function executarComTratamento(acao: () => void) {
     acao();
   } catch (erro) {
     const mensagem = erro instanceof Error ? erro.message : String(erro);
+    // quest 3: tratamento de erros e mensagens claras
     console.log("Erro:", mensagem);
   }
 }
@@ -152,6 +153,7 @@ function menuCarros() {
             carros.forEach((carro, index) => {
               console.log(`${index}: ${carro.getInfo()}`);
             });
+            // quest 2: ação em massa usando polimorfismo no array de Carro
             console.log("Inspeção em massa concluída.");
           }
           break;
@@ -309,7 +311,6 @@ function realizarVenda() {
   carroVendido.vender();
   carrosVendidos.push(carroVendido);
   
-  // Remove o carro da lista de disponíveis
   carros.splice(indiceCarrow, 1);
   
   console.log("Venda realizada com sucesso!");
@@ -317,6 +318,7 @@ function realizarVenda() {
   console.log("Carro removido da lista de disponíveis.");
   } catch (erro) {
     const mensagem = erro instanceof Error ? erro.message : String(erro);
+    // quest 3: tratamento de erros em vendas inválidas
     console.log("Erro ao realizar venda:", mensagem);
   }
 }
@@ -338,15 +340,15 @@ while (exec) {
 
   switch (escolha) {
     case 1:
-      menuCarros();
+      executarComTratamento(menuCarros);
       break;
 
     case 2:
-      menuClientes();
+      executarComTratamento(menuClientes);
       break;
 
     case 3:
-      realizarVenda();
+      executarComTratamento(realizarVenda);
       break;
 
     case 4:
